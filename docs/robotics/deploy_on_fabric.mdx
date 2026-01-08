@@ -1,0 +1,66 @@
+---
+title: Deploy on FABRIC
+description: "How to deploy your robots on FABRIC"
+---
+
+FABRIC is OpenMind's decentralized machine-to-machine coordination and communication system. To deploy your robot on FABRIC using OM1, follow these steps:
+
+## 1. Obtain Identity and Keys
+
+Before configuring your robot, you need to register it and get the necessary credentials.
+
+### Get an API Key
+1. Go to the [OpenMind Portal](https://portal.openmind.org/).
+2. Sign up or log in to generate your **API Key**.
+
+### Join FABRIC and Get a URID
+1. Navigate to the [Robots section of the Portal](https://portal.openmind.org/robots).
+2. Enter your machine's metadata (currently just an arbitrary string to identify your robot).
+3. Click "Join".
+4. The system will generate a **Universal Robot ID (URID)**.
+   - Format: Starts with `OM`, followed by 12 alphanumeric characters (e.g., `OM742d35Cc6634`).
+   - This ID allows your robot to communicate with others on the FABRIC network.
+
+## 2. Configure Your Robot
+
+You need to update your robot's configuration file in the OM1 repository.
+
+1. Locate your robot's config file in the `config/` directory (e.g., `config/turtlebot4.json5` or `config/spot.json5`).
+2. Open the file and update the `api_key` and `URID` fields.
+
+```json5
+{
+  "version": "v1.0.1",
+  "name": "my_robot_name",
+  "api_key": "YOUR_OPENMIND_API_KEY", // Replace with your actual API Key
+  "URID": "YOUR_URID",                 // Replace with your generated URID (e.g., OM742d35Cc6634)
+  // ... other settings
+}
+```
+
+### Alternative: Using Environment Variables
+You can also set these values using a `.env` file in the root of the project to avoid hardcoding them in the config file.
+
+```bash
+OM_API_KEY=om1_live_...
+URID=OM742d35Cc6634
+```
+
+## 3. Run OM1
+
+Once configured, launch the OM1 agent with your robot's profile.
+
+```bash
+uv run src/run.py <robot_profile_name>
+```
+
+Example for TurtleBot4:
+```bash
+uv run src/run.py turtlebot4
+```
+
+## 4. Verification
+
+To verify your robot is successfully deployed and connected:
+- **WebSim**: Open `http://localhost:8000/` to visualize your robot's state and debug.
+- **Console Logs**: Check the logs for successful connection messages to the OpenMind server and FABRIC network.

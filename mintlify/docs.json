@@ -41,7 +41,8 @@
                             "robotics/unitree_g1_humanoid",
                             "robotics/unitree_go2_quadruped",
                             "robotics/turtlebot4_zenoh",
-                            "robotics/ubtech_yanshee"
+                            "robotics/ubtech_yanshee",
+                            "robotics/deploy_on_fabric"
                         ]
                     },
                     {
